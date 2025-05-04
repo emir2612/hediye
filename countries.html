@@ -110,12 +110,7 @@
 
   <div class="list-box">
     <h2>Ülkeler (<span id="country-count">0</span> ülke):</h2>
-    <p id="country-list">
-      Almanya, İskoçya, Macaristan, İsviçre, İspanya, Hırvatistan, İtalya, Arnavutluk,
-      Slovenya, Danimarka, Sırbistan, İngiltere, Polonya, Hollanda, Avusturya, Fransa,
-      Belçika, Slovakya, Romanya, Ukrayna, Gürcistan, Portekiz, Çek Cumhuriyeti,
-      Mısır, Çin, Japonya, Singapur, Tayland, Yunanistan
-    </p>
+    <p id="country-list"></p>
 
     <input type="text" id="new-country" placeholder="Yeni ülke girin">
     <button onclick="addCountry()">Ekle</button>
@@ -134,16 +129,23 @@
   <img src="countries/foto11.jpg" alt="Foto 11" class="photo p11">
   <img src="countries/foto8.jpg" alt="Foto 8" class="photo p8 large">
 
-  <!-- Düzeltilmiş geri dön linki -->
   <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
 
   <script>
+    const defaultCountries = [
+      "Almanya", "İskoçya", "Macaristan", "İsviçre", "İspanya", "Hırvatistan", "İtalya", "Arnavutluk",
+      "Slovenya", "Danimarka", "Sırbistan", "İngiltere", "Polonya", "Hollanda", "Avusturya", "Fransa",
+      "Belçika", "Slovakya", "Romanya", "Ukrayna", "Gürcistan", "Portekiz", "Çek Cumhuriyeti",
+      "Mısır", "Çin", "Japonya", "Singapur", "Tayland", "Yunanistan"
+    ];
+
+    let countries = JSON.parse(localStorage.getItem("countries")) || defaultCountries.slice();
     const countriesElement = document.getElementById("country-list");
-    let countries = countriesElement.innerText.split(",").map(c => c.trim()).filter(c => c.length > 0);
 
     function updateDisplay() {
       countriesElement.innerText = countries.join(", ");
       document.getElementById("country-count").innerText = countries.length;
+      localStorage.setItem("countries", JSON.stringify(countries));
     }
 
     function addCountry() {
