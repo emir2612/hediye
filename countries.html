@@ -5,7 +5,7 @@
   <title>Dilge's Visited Countries</title>
   <style>
     body {
-      background-color: #ffb6c1;
+      background-color: #ff7093;
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 40px;
@@ -40,6 +40,29 @@
       line-height: 1.6;
     }
 
+    input {
+      padding: 8px;
+      width: 60%;
+      border-radius: 10px;
+      border: 1px solid gray;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-left: 10px;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
     .photo {
       position: absolute;
       height: 280px;
@@ -54,32 +77,30 @@
       transform: scale(1.05);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
-    .large {
-      height: 400px;
-    }
-    /* Fotoğraf konumları */
-    .p1  { top: 200px;  left: 750px; }
-    .p2  { top: 500px;  left: 1400px; }
-    .p3  { top: 650px;  left: 650px; }
-    .p4  { top: 300px;  left: 1150px; }
-    .p5  { top: 450px;  left: 950px; }
-    .p6  { top: 200px;  left: 950px; }
-    .p7  { top: 550px;  left: 950px; }
-    .p8  { top: 550px;  left: 100px; }
-    .p9  { top: 700px;  left: 180px; }
-    .p10 { top: 800px;  left: 300px; }
-    .p11 { top: 900px; left: 600px; }
-    .p12 { top: 1100px; left: 1000px; }
-    .p13 { top: 1200px; left: 950px; }
 
-    a {
+    .large {
+      height: 450px;
+    }
+
+    .p1  { top: 200px;  left: 750px; }
+    .p3  { top: 780px;  left: 600px; }
+    .p4  { top: 630px;  left: 750px; }
+    .p5  { top: 530px;  left: 1050px; }
+    .p7  { top: 830px;  left: 900px; }
+    .p8  { top: 550px;  left: 50px; }
+    .p10 { top: 800px;  left: 300px; }
+    .p11 { top: 500px; left: 440px; }
+
+    .back-link {
       display: block;
       text-align: center;
-      margin-top: 60px;
+      margin: 1000px auto 40px;
       color: black;
       font-weight: bold;
       text-decoration: none;
       font-size: 16px;
+      position: relative;
+      z-index: 10;
     }
   </style>
 </head>
@@ -95,29 +116,62 @@
       Belçika, Slovakya, Romanya, Ukrayna, Gürcistan, Portekiz, Çek Cumhuriyeti,
       Mısır, Çin, Japonya, Singapur, Tayland, Yunanistan
     </p>
+
+    <input type="text" id="new-country" placeholder="Yeni ülke girin">
+    <button onclick="addCountry()">Ekle</button>
+    <br>
+    <input type="text" id="remove-country" placeholder="Silinecek ülkeyi girin">
+    <button onclick="removeCountry()">Sil</button>
   </div>
 
   <!-- Fotoğraflar -->
   <img src="countries/foto1.jpg" alt="Foto 1" class="photo p1 large">
-  <img src="countries/foto2.jpg" alt="Foto 2" class="photo p2">
   <img src="countries/foto3.jpg" alt="Foto 3" class="photo p3">
   <img src="countries/foto4.jpg" alt="Foto 4" class="photo p4">
-  <img src="countries/foto5.jpg" alt="Foto 5" class="photo p5">
-  <img src="countries/foto6.jpg" alt="Foto 6" class="photo p6">
+  <img src="countries/foto5.jpg" alt="Foto 5" class="photo p5 ">
   <img src="countries/foto7.jpg" alt="Foto 7" class="photo p7">
-  <img src="countries/foto8.jpg" alt="Foto 8" class="photo p8">
-  <img src="countries/foto9.jpg" alt="Foto 9" class="photo p9">
   <img src="countries/foto10.jpg" alt="Foto 10" class="photo p10">
   <img src="countries/foto11.jpg" alt="Foto 11" class="photo p11">
-  <img src="countries/foto12.jpg" alt="Foto 12" class="photo p12">
-  <img src="countries/foto13.jpg" alt="Foto 13" class="photo p13">
+  <img src="countries/foto8.jpg" alt="Foto 8" class="photo p8 large">
 
-  <a href="index.html">← Ana Sayfaya Dön</a>
+  <!-- Düzeltilmiş geri dön linki -->
+  <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
 
   <script>
-    const countries = document.getElementById("country-list").innerText.split(",");
-    const cleaned = countries.map(c => c.trim()).filter(c => c.length > 0);
-    document.getElementById("country-count").innerText = cleaned.length;
+    const countriesElement = document.getElementById("country-list");
+    let countries = countriesElement.innerText.split(",").map(c => c.trim()).filter(c => c.length > 0);
+
+    function updateDisplay() {
+      countriesElement.innerText = countries.join(", ");
+      document.getElementById("country-count").innerText = countries.length;
+    }
+
+    function addCountry() {
+      const input = document.getElementById("new-country");
+      const newCountry = input.value.trim();
+      if (newCountry && !countries.includes(newCountry)) {
+        countries.push(newCountry);
+        updateDisplay();
+        input.value = "";
+      } else {
+        alert("Geçersiz ya da zaten listede olan bir ülke girdiniz.");
+      }
+    }
+
+    function removeCountry() {
+      const input = document.getElementById("remove-country");
+      const countryToRemove = input.value.trim();
+      const index = countries.indexOf(countryToRemove);
+      if (index !== -1) {
+        countries.splice(index, 1);
+        updateDisplay();
+        input.value = "";
+      } else {
+        alert("Bu ülke listede bulunamadı.");
+      }
+    }
+
+    updateDisplay();
   </script>
 
 </body>
