@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dilge's BFFs</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #ffb6c1;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: black;
+    }
+
+    .hex-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 160px); /* Wrapper genişliği */
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .hex-wrapper {
+      padding: 5px;
+      background-color: black;
+      clip-path: polygon(
+        25% 5.77%, 75% 5.77%,
+        100% 50%, 75% 94.23%,
+        25% 94.23%, 0% 50%
+      );
+    }
+
+    .hex {
+      width: 150px;
+      aspect-ratio: 1;
+      clip-path: polygon(
+        25% 5.77%, 75% 5.77%,
+        100% 50%, 75% 94.23%,
+        25% 94.23%, 0% 50%
+      );
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .hex:hover {
+      transform: scale(1.05);
+    }
+
+    .hex img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    a {
+      margin-top: 50px;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    @media screen and (max-width: 500px) {
+      .hex-grid {
+        grid-template-columns: repeat(2, 160px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dilge's BFFs</h1>
+
+  <div class="hex-grid">
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff1.jpg" alt="BFF 1"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff2.jpg" alt="BFF 2"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff3.jpg" alt="BFF 3"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff4.jpg" alt="BFF 4"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff5.jpg" alt="BFF 5"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff6.jpg" alt="BFF 6"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff7.jpg" alt="BFF 7"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff8.jpg" alt="BFF 8"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff9.jpg" alt="BFF 9"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff10.jpg" alt="BFF 10"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff11.jpg" alt="BFF 11"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff12.jpg" alt="BFF 12"></div></div>
+  </div>
+
+  <a href="index.html">← Ana Sayfaya Dön</a>
+
+</body>
+</html>

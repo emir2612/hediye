@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dilge's Hobbies</title>
+  <style>
+    body {
+      background-color: #ffb6c1;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 50px;
+      color: black;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      margin-bottom: 30px;
+      width: 80%;
+      max-width: 700px;
+      text-align: left;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 24px;
+      border-bottom: 2px solid black;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card p {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+   .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* her satıra 5 kutu */
+      gap: 15px;
+      margin-top: 15px;
+   }
+
+   .box {
+      text-align: center;
+   }
+
+    .box img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .box p {
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    a {
+      margin-top: 40px;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 16px;
+      align-self: flex-end;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dilge's Hobbies</h1>
+
+  <div class="card">
+    <h2>📚 Kitaplar</h2>
+    <p>Buraya Dilge'nin en sevdiği kitapları, yazarları veya kitaplık fotoğrafını ekleyebilirsin.</p>
+  </div>
+
+  <div class="card">
+    <h2>🎬 Anime / Dizi</h2>
+    <p> asd </p>
+    <div class="grid">
+      <div class="box"><img src="img/anime1.jpg" alt="anime1"><p>Blue Lock</p></div>
+      <div class="box"><img src="img/anime2.jpg" alt="anime2"><p>Big Bang Theory</p></div>
+      <div class="box"><img src="img/anime3.jpg" alt="anime3"><p>chainsaw man</p></div>
+      <div class="box"><img src="img/anime4.jpg" alt="anime4"><p>School babysitters</p></div>
+      <div class="box"><img src="img/anime5.jpg" alt="anime5"><p>Substance</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🎧 Müzik</h2>
+    <p>https://open.spotify.com/user/dilgeylmaz?si=3e34d78a00c04169</p>
+    <div class="grid">
+      <div class="box"><img src="img/song1.jpg" alt="song1"><p>Şarkı 1</p></div>
+      <div class="box"><img src="img/song2.jpg" alt="song2"><p>Şarkı 2</p></div>
+      <div class="box"><img src="img/song3.jpg" alt="song3"><p>Ati</p></div>
+      <div class="box"><img src="img/song4.jpg" alt="song4"><p>Fashion</p></div>
+      <div class="box"><img src="img/song5.jpg" alt="song5"><p>Saat 3</p></div>
+    </div>
+  </div>
+
+
+</body>
+</html>
