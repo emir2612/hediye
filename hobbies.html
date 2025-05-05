@@ -45,16 +45,17 @@
       font-size: 16px;
       margin-top: 10px;
     }
-   .grid {
+
+    .grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr); /* her satıra 5 kutu */
+      grid-template-columns: repeat(5, 1fr);
       gap: 15px;
       margin-top: 15px;
-   }
+    }
 
-   .box {
+    .box {
       text-align: center;
-   }
+    }
 
     .box img {
       width: 100%;
@@ -70,13 +71,36 @@
       font-weight: bold;
     }
 
-    a {
-      margin-top: 40px;
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 16px;
-      align-self: flex-end;
+    input, select {
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid gray;
+      width: 60%;
+    }
+
+    button {
+      padding: 8px 14px;
+      margin-top: 10px;
+      margin-left: 5px;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #388E3C;
+    }
+
+    ul {
+      margin-top: 15px;
+    }
+
+    ul li {
+      font-size: 15px;
+      margin-bottom: 6px;
     }
   </style>
 </head>
@@ -84,26 +108,52 @@
 
   <h1>Dilge's Hobbies</h1>
 
+  <!-- Kitap -->
   <div class="card">
     <h2>📚 Kitaplar</h2>
-    <p>Buraya Dilge'nin en sevdiği kitapları, yazarları veya kitaplık fotoğrafını ekleyebilirsin.</p>
+    <p></p>
+    <input type="text" id="kitapInput" placeholder="Kitap adı gir">
+    <select id="kitapPuan">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button onclick="addKitap()">Kitap Ekle</button>
+    <button onclick="removeKitap()">Kitap Sil</button>
+    <ul id="kitapList"></ul>
   </div>
 
+  <!-- Dizi/Film -->
   <div class="card">
-    <h2>🎬 Anime / Dizi</h2>
-    <p> asd </p>
+    <h2>🎬 Anime / Dizi / Film</h2>
+    <p></p>
+    <input type="text" id="diziInput" placeholder="Dizi/Film adı gir">
+    <select id="diziPuan">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <button onclick="addDizi()">Ekle</button>
+    <button onclick="removeDizi()">Sil</button>
+    <ul id="diziList"></ul>
+
     <div class="grid">
       <div class="box"><img src="img/anime1.jpg" alt="anime1"><p>Blue Lock</p></div>
       <div class="box"><img src="img/anime2.jpg" alt="anime2"><p>Big Bang Theory</p></div>
-      <div class="box"><img src="img/anime3.jpg" alt="anime3"><p>chainsaw man</p></div>
-      <div class="box"><img src="img/anime4.jpg" alt="anime4"><p>School babysitters</p></div>
+      <div class="box"><img src="img/anime3.jpg" alt="anime3"><p>Chainsaw Man</p></div>
+      <div class="box"><img src="img/anime4.jpg" alt="anime4"><p>School Babysitters</p></div>
       <div class="box"><img src="img/anime5.jpg" alt="anime5"><p>Substance</p></div>
     </div>
   </div>
 
+  <!-- Müzik -->
   <div class="card">
     <h2>🎧 Müzik</h2>
-    <p>https://open.spotify.com/user/dilgeylmaz?si=3e34d78a00c04169</p>
+    <p><a href="https://open.spotify.com/user/dilgeylmaz?si=3e34d78a00c04169" target="_blank">Spotify Profiline Git</a></p>
     <div class="grid">
       <div class="box"><img src="img/song1.jpg" alt="song1"><p>Şarkı 1</p></div>
       <div class="box"><img src="img/song2.jpg" alt="song2"><p>Şarkı 2</p></div>
@@ -113,6 +163,74 @@
     </div>
   </div>
 
+  <script>
+    // ---------- KITAP ----------
+    const kitapList = document.getElementById("kitapList");
+    let kitaplar = JSON.parse(localStorage.getItem("kitaplar")) || [];
+
+    function renderKitap() {
+      kitapList.innerHTML = "";
+      kitaplar.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.ad} (${item.puan}/5)`;
+        kitapList.appendChild(li);
+      });
+    }
+
+    function addKitap() {
+      const ad = document.getElementById("kitapInput").value.trim();
+      const puan = document.getElementById("kitapPuan").value;
+      if (ad && !kitaplar.some(k => k.ad === ad)) {
+        kitaplar.push({ ad, puan });
+        localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
+        renderKitap();
+        document.getElementById("kitapInput").value = "";
+      }
+    }
+
+    function removeKitap() {
+      const ad = document.getElementById("kitapInput").value.trim();
+      kitaplar = kitaplar.filter(k => k.ad !== ad);
+      localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
+      renderKitap();
+      document.getElementById("kitapInput").value = "";
+    }
+
+    // ---------- DIZI ----------
+    const diziList = document.getElementById("diziList");
+    let diziler = JSON.parse(localStorage.getItem("diziler")) || [];
+
+    function renderDizi() {
+      diziList.innerHTML = "";
+      diziler.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.ad} (${item.puan}/5)`;
+        diziList.appendChild(li);
+      });
+    }
+
+    function addDizi() {
+      const ad = document.getElementById("diziInput").value.trim();
+      const puan = document.getElementById("diziPuan").value;
+      if (ad && !diziler.some(d => d.ad === ad)) {
+        diziler.push({ ad, puan });
+        localStorage.setItem("diziler", JSON.stringify(diziler));
+        renderDizi();
+        document.getElementById("diziInput").value = "";
+      }
+    }
+
+    function removeDizi() {
+      const ad = document.getElementById("diziInput").value.trim();
+      diziler = diziler.filter(d => d.ad !== ad);
+      localStorage.setItem("diziler", JSON.stringify(diziler));
+      renderDizi();
+      document.getElementById("diziInput").value = "";
+    }
+
+    renderKitap();
+    renderDizi();
+  </script>
 
 </body>
 </html>
