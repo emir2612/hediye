@@ -110,7 +110,7 @@
 
   <!-- Kitap -->
   <div class="card">
-    <h2>📚 Kitaplar</h2>
+    <h2>Kitaplar</h2>
     <p></p>
     <input type="text" id="kitapInput" placeholder="Kitap adı gir">
     <select id="kitapPuan">
@@ -127,7 +127,7 @@
 
   <!-- Dizi/Film -->
   <div class="card">
-    <h2>🎬 Anime / Dizi / Film</h2>
+    <h2>Anime / Dizi / Film</h2>
     <p></p>
     <input type="text" id="diziInput" placeholder="Dizi/Film adı gir">
     <select id="diziPuan">
@@ -152,7 +152,7 @@
 
   <!-- Müzik -->
   <div class="card">
-    <h2>🎧 Müzik</h2>
+    <h2>Müzik</h2>
     <p><a href="https://open.spotify.com/user/dilgeylmaz?si=3e34d78a00c04169" target="_blank">Spotify Profiline Git</a></p>
     <div class="grid">
       <div class="box"><img src="img/song1.jpg" alt="song1"><p>Şarkı 1</p></div>
@@ -164,73 +164,78 @@
   </div>
 
   <script>
-    // ---------- KITAP ----------
-    const kitapList = document.getElementById("kitapList");
-    let kitaplar = JSON.parse(localStorage.getItem("kitaplar")) || [];
+  // ---------- KITAP ----------
+  const kitapList = document.getElementById("kitapList");
+  let kitaplar = JSON.parse(localStorage.getItem("kitaplar")) || [];
 
-    function renderKitap() {
-      kitapList.innerHTML = "";
-      kitaplar.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.ad} (${item.puan}/5)`;
-        kitapList.appendChild(li);
-      });
-    }
+  function renderKitap() {
+    kitapList.innerHTML = "";
+    kitaplar.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.ad} (${item.puan}/5)`;
+      kitapList.appendChild(li);
+    });
+  }
 
-    function addKitap() {
-      const ad = document.getElementById("kitapInput").value.trim();
-      const puan = document.getElementById("kitapPuan").value;
-      if (ad && !kitaplar.some(k => k.ad === ad)) {
-        kitaplar.push({ ad, puan });
-        localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
-        renderKitap();
-        document.getElementById("kitapInput").value = "";
-      }
-    }
-
-    function removeKitap() {
-      const ad = document.getElementById("kitapInput").value.trim();
-      kitaplar = kitaplar.filter(k => k.ad !== ad);
+  function addKitap() {
+    const ad = document.getElementById("kitapInput").value.trim();
+    const puan = document.getElementById("kitapPuan").value;
+    if (ad && !kitaplar.some(k => k.ad === ad)) {
+      kitaplar.push({ ad, puan: parseInt(puan) });
       localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
       renderKitap();
       document.getElementById("kitapInput").value = "";
     }
+  }
 
-    // ---------- DIZI ----------
-    const diziList = document.getElementById("diziList");
-    let diziler = JSON.parse(localStorage.getItem("diziler")) || [];
+  function removeKitap() {
+    const ad = document.getElementById("kitapInput").value.trim();
+    kitaplar = kitaplar.filter(k => k.ad !== ad);
+    localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
+    renderKitap();
+    document.getElementById("kitapInput").value = "";
+  }
 
-    function renderDizi() {
-      diziList.innerHTML = "";
-      diziler.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.ad} (${item.puan}/5)`;
-        diziList.appendChild(li);
-      });
-    }
+  // ---------- DIZI (PUANA GÖRE SIRALI) ----------
+  const diziList = document.getElementById("diziList");
+  let diziler = JSON.parse(localStorage.getItem("diziler")) || [];
 
-    function addDizi() {
-      const ad = document.getElementById("diziInput").value.trim();
-      const puan = document.getElementById("diziPuan").value;
-      if (ad && !diziler.some(d => d.ad === ad)) {
-        diziler.push({ ad, puan });
-        localStorage.setItem("diziler", JSON.stringify(diziler));
-        renderDizi();
-        document.getElementById("diziInput").value = "";
-      }
-    }
+  function renderDizi() {
+    diziList.innerHTML = "";
 
-    function removeDizi() {
-      const ad = document.getElementById("diziInput").value.trim();
-      diziler = diziler.filter(d => d.ad !== ad);
+    // puana göre sırala (yüksek puan üstte)
+    const sorted = [...diziler].sort((a, b) => b.puan - a.puan);
+
+    sorted.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.ad} (${item.puan}/5)`;
+      diziList.appendChild(li);
+    });
+  }
+
+  function addDizi() {
+    const ad = document.getElementById("diziInput").value.trim();
+    const puan = parseInt(document.getElementById("diziPuan").value);
+    if (ad && !diziler.some(d => d.ad === ad)) {
+      diziler.push({ ad, puan });
       localStorage.setItem("diziler", JSON.stringify(diziler));
       renderDizi();
       document.getElementById("diziInput").value = "";
     }
+  }
 
-    renderKitap();
+  function removeDizi() {
+    const ad = document.getElementById("diziInput").value.trim();
+    diziler = diziler.filter(d => d.ad !== ad);
+    localStorage.setItem("diziler", JSON.stringify(diziler));
     renderDizi();
-  </script>
+    document.getElementById("diziInput").value = "";
+  }
+
+  renderKitap();
+  renderDizi();
+</script>
+
 
 </body>
 </html>
