@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Dilge's BFFs</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       background-color: #ff7093;
@@ -21,14 +20,58 @@
       color: black;
     }
 
+    /* BÜYÜK TEK HEX */
+    .featured-hex-wrapper {
+      margin-bottom: 40px;
+      background-color: black;
+      clip-path: polygon(
+        25% 5.77%, 75% 5.77%,
+        100% 50%, 75% 94.23%,
+        25% 94.23%, 0% 50%
+      );
+      width: 240px;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .featured-hex {
+      width: 240px;
+      aspect-ratio: 1;
+      clip-path: polygon(
+        25% 5.77%, 75% 5.77%,
+        100% 50%, 75% 94.23%,
+        25% 94.23%, 0% 50%
+      );
+      overflow: hidden;
+    }
+
+    .featured-hex img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.2);
+    }
+    .featured-name {
+     margin-top: 10px;
+     font-size: 18px;
+     font-weight: bold;
+     color: white;
+     background-color: rgba(0, 0, 0, 0.6);
+     padding: 5px 15px;
+     border-radius: 20px;
+   }
+    /* NORMAL GRID */
     .hex-grid {
       display: grid;
-      grid-template-columns: repeat(3, 160px); /* Wrapper genişliği */
+      grid-template-columns: repeat(3, 160px);
       gap: 30px;
       justify-content: center;
     }
 
     .hex-wrapper {
+      margin-top: 10px;
       padding: 5px;
       background-color: black;
       clip-path: polygon(
@@ -79,6 +122,14 @@
 
   <h1>Dilge's BFFs</h1>
 
+  <!-- Büyük Tek Hex -->
+  <div class="featured-hex-wrapper">
+    <div class="featured-hex">
+      <img src="bff/bff0.jpg" alt="Featured BFF">
+    </div>
+  </div>
+
+  <!-- Diğer Hex'ler -->
   <div class="hex-grid">
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff1.jpg" alt="BFF 1"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff2.jpg" alt="BFF 2"></div></div>

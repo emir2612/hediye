@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dilge Galeri</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ff7093;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .menu {
+      position: fixed;
+      left: 30px;
+      top: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 1;
+    }
+
+    .menu a {
+      background-color: black;
+      color: white;
+      padding: 15px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      width: 220px;
+      text-align: center;
+    }
+
+    .gallery-title {
+      position: fixed;
+      top: 60px;
+      left: 30px;
+      font-size: 40px;
+      color: black;
+      z-index: 2;
+    }
+
+    .photo {
+      position: absolute;
+      width: 200px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .p1 { top: 120px; left: 350px; }
+    .p2 { top: 80px; left: 600px; }
+    .p3 { top: 300px; left: 500px; }
+    .p4 { top: 430px; left: 700px; }
+    .p5 { top: 220px; left: 790px; }
+    .p6 { top: 500px; left: 370px; }
+  </style>
+</head>
+<body>
+
+  <h1 class="gallery-title">Dilge Yılmaz(Artık evli)</h1>
+
+  <div class="menu">
+    <a href="family.html">Çekirdek Fam</a>
+    <a href="bffs.html">Dilge's BFFs</a>
+    <a href="hobbies.html">Dilge's Hobbies</a>
+    <a href="countries.html">Visited Countries</a>
+  </div>
+
+  <img src="fotos/dilge1.png" alt="Foto 1" class="photo p1">
+  <img src="fotos/dilge2.jpg" alt="Foto 2" class="photo p2">
+  <img src="fotos/dilge3.png" alt="Foto 3" class="photo p3">
+  <img src="fotos/dilge4.png" alt="Foto 4" class="photo p4">
+  <img src="fotos/dilge5.png" alt="Foto 5" class="photo p5">
+  <img src="fotos/dilge6.png" alt="Foto 6" class="photo p6">
+
+</body>
+</html>
