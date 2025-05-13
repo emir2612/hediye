@@ -35,43 +35,29 @@
       flex-direction: column;
       align-items: center;
     }
-
     .featured-hex {
       width: 240px;
       aspect-ratio: 1;
-      clip-path: polygon(
-        25% 5.77%, 75% 5.77%,
-        100% 50%, 75% 94.23%,
-        25% 94.23%, 0% 50%
-      );
+      clip-path: inherit;
       overflow: hidden;
     }
-
-    .featured-hex img {
+    .featured-hex img,
+    .second-row .hex img,
+    .hex-grid .hex img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.2);
-    }
-    .featured-name {
-     margin-top: 10px;
-     font-size: 18px;
-     font-weight: bold;
-     color: white;
-     background-color: rgba(0, 0, 0, 0.6);
-     padding: 5px 15px;
-     border-radius: 20px;
-   }
-    /* NORMAL GRID */
-    .hex-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 160px);
-      gap: 30px;
-      justify-content: center;
+      cursor: pointer;
     }
 
-    .hex-wrapper {
-      margin-top: 10px;
+    /* İKİNCİ SATIR – 4 FOTOĞRAF */
+    .second-row {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      justify-content: center;
+    }
+    .second-row .hex-wrapper {
       padding: 5px;
       background-color: black;
       clip-path: polygon(
@@ -80,27 +66,69 @@
         25% 94.23%, 0% 50%
       );
     }
-
-    .hex {
+    .second-row .hex {
       width: 150px;
       aspect-ratio: 1;
+      clip-path: inherit;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .second-row .hex:hover {
+      transform: scale(1.05);
+    }
+
+    /* GERİ KALAN 3 SATIR – 3 SÜTUN */
+    .hex-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 160px);
+      gap: 30px;
+      justify-content: center;
+    }
+    .hex-grid .hex-wrapper {
+      padding: 5px;
+      background-color: black;
       clip-path: polygon(
         25% 5.77%, 75% 5.77%,
         100% 50%, 75% 94.23%,
         25% 94.23%, 0% 50%
       );
+    }
+    .hex-grid .hex {
+      width: 150px;
+      aspect-ratio: 1;
+      clip-path: inherit;
       overflow: hidden;
       transition: transform 0.3s ease;
     }
-
-    .hex:hover {
+    .hex-grid .hex:hover {
       transform: scale(1.05);
     }
 
-    .hex img {
+    /* MODAL LIGHTBOX */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+    .modal .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     a {
@@ -112,6 +140,9 @@
     }
 
     @media screen and (max-width: 500px) {
+      .second-row, .hex-grid {
+        gap: 20px;
+      }
       .hex-grid {
         grid-template-columns: repeat(2, 160px);
       }
@@ -122,30 +153,68 @@
 
   <h1>Dilge's BFFs</h1>
 
-  <!-- Büyük Tek Hex -->
+  <!-- 1. satır: büyük foto -->
   <div class="featured-hex-wrapper">
     <div class="featured-hex">
       <img src="bff/bff0.jpg" alt="Featured BFF">
     </div>
   </div>
 
-  <!-- Diğer Hex'ler -->
-  <div class="hex-grid">
+  <!-- 2. satır: 4 foto -->
+  <div class="second-row">
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff1.jpg" alt="BFF 1"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff2.jpg" alt="BFF 2"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff3.jpg" alt="BFF 3"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff4.jpg" alt="BFF 4"></div></div>
+  </div>
+
+  <!-- Sonraki 3 satır: her satırda 3 foto -->
+  <div class="hex-grid">
+    <!-- 3. satır -->
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff5.jpg" alt="BFF 5"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff6.jpg" alt="BFF 6"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff7.jpg" alt="BFF 7"></div></div>
+
+    <!-- 4. satır -->
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff8.jpg" alt="BFF 8"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff9.jpg" alt="BFF 9"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff10.jpg" alt="BFF 10"></div></div>
+
+    <!-- 5. satır -->
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff11.jpg" alt="BFF 11"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff12.jpg" alt="BFF 12"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff13.jpg" alt="BFF 13"></div></div>
   </div>
 
   <a href="index.html">← Ana Sayfaya Dön</a>
+
+  <!-- Modal Lightbox -->
+  <div id="modal" class="modal">
+    <span class="close" id="modal-close">&times;</span>
+    <img id="modal-img" src="" alt="Enlarged photo">
+  </div>
+
+  <script>
+    // Tüm resimlere tıklama ekle
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', () => {
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        modal.style.display = 'flex';
+        modalImg.src = img.src;
+      });
+    });
+    // Kapat düğmesi
+    document.getElementById('modal-close').addEventListener('click', () => {
+      document.getElementById('modal').style.display = 'none';
+    });
+    // Modal dışına tıklayınca kapat
+    document.getElementById('modal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) {
+        e.currentTarget.style.display = 'none';
+      }
+    });
+  </script>
 
 </body>
 </html>
