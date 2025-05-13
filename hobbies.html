@@ -41,11 +41,6 @@
       gap: 10px;
     }
 
-    .card p {
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -55,6 +50,8 @@
 
     .box {
       text-align: center;
+      text-decoration: none;
+      color: inherit;
     }
 
     .box img {
@@ -111,7 +108,6 @@
   <!-- Kitap -->
   <div class="card">
     <h2>Kitaplar</h2>
-    <p></p>
     <input type="text" id="kitapInput" placeholder="Kitap adı gir">
     <select id="kitapPuan">
       <option value="1">1</option>
@@ -128,7 +124,6 @@
   <!-- Dizi/Film -->
   <div class="card">
     <h2>Anime / Dizi / Film</h2>
-    <p></p>
     <input type="text" id="diziInput" placeholder="Dizi/Film adı gir">
     <select id="diziPuan">
       <option value="1">1</option>
@@ -155,87 +150,98 @@
     <h2>Müzik</h2>
     <p><a href="https://open.spotify.com/user/dilgeylmaz?si=3e34d78a00c04169" target="_blank">Spotify Profiline Git</a></p>
     <div class="grid">
-      <div class="box"><img src="img/song1.jpg" alt="song1"><p>Şarkı 1</p></div>
-      <div class="box"><img src="img/song2.jpg" alt="song2"><p>Şarkı 2</p></div>
-      <div class="box"><img src="img/song3.jpg" alt="song3"><p>Ati</p></div>
-      <div class="box"><img src="img/song4.jpg" alt="song4"><p>Fashion</p></div>
-      <div class="box"><img src="img/song5.jpg" alt="song5"><p>Saat 3</p></div>
+      <a class="box" href="https://open.spotify.com/playlist/1HNKK4SqMf1q66Au31i7Xa?si=8cc4c5e01e0048b5" target="_blank">
+        <img src="img/song1.jpg" alt="itoshi ring">
+        <p>İtoshi ring</p>
+      </a>
+      <a class="box" href="https://open.spotify.com/playlist/1NDTmQDgOerDE5oxlfxurj?si=a9bb569989064d68" target="_blank">
+        <img src="img/terra_playlist.jpg" alt="terra gold">
+        <p>beylerbeyi terra gold</p>
+      </a>
+      <a class="box" href="https://open.spotify.com/intl-tr/album/5ABVGZE1Ykvy6n0MrWWWww?si=I3cSnAqWTsS1vnEmaj4k1w" target="_blank">
+        <img src="img/song3.jpg" alt="Ati">
+        <p>Ati</p>
+      </a>
+      <a class="box" href="https://open.spotify.com/intl-tr/track/70jiETKdlLEram2zJSHdHH?si=86ae04153f054ae6" target="_blank">
+        <img src="img/song4.jpg" alt="Fashion">
+        <p>Fashion</p>
+      </a>
+      <a class="box" href="https://open.spotify.com/intl-tr/track/45cI1Cz1nyp1sHiUd2kgal?si=9595c260e7b54cb2" target="_blank">
+        <img src="img/song5.jpg" alt="Saat 3">
+        <p>Saat 3</p>
+      </a>
     </div>
   </div>
 
   <script>
-  // ---------- KITAP ----------
-  const kitapList = document.getElementById("kitapList");
-  let kitaplar = JSON.parse(localStorage.getItem("kitaplar")) || [];
+    // Kitaplar
+    const kitapList = document.getElementById("kitapList");
+    let kitaplar = JSON.parse(localStorage.getItem("kitaplar")) || [];
 
-  function renderKitap() {
-    kitapList.innerHTML = "";
-    kitaplar.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = `${item.ad} (${item.puan}/5)`;
-      kitapList.appendChild(li);
-    });
-  }
+    function renderKitap() {
+      kitapList.innerHTML = "";
+      kitaplar.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.ad} (${item.puan}/5)`;
+        kitapList.appendChild(li);
+      });
+    }
 
-  function addKitap() {
-    const ad = document.getElementById("kitapInput").value.trim();
-    const puan = document.getElementById("kitapPuan").value;
-    if (ad && !kitaplar.some(k => k.ad === ad)) {
-      kitaplar.push({ ad, puan: parseInt(puan) });
+    function addKitap() {
+      const ad = document.getElementById("kitapInput").value.trim();
+      const puan = document.getElementById("kitapPuan").value;
+      if (ad && !kitaplar.some(k => k.ad === ad)) {
+        kitaplar.push({ ad, puan: parseInt(puan) });
+        localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
+        renderKitap();
+        document.getElementById("kitapInput").value = "";
+      }
+    }
+
+    function removeKitap() {
+      const ad = document.getElementById("kitapInput").value.trim();
+      kitaplar = kitaplar.filter(k => k.ad !== ad);
       localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
       renderKitap();
       document.getElementById("kitapInput").value = "";
     }
-  }
 
-  function removeKitap() {
-    const ad = document.getElementById("kitapInput").value.trim();
-    kitaplar = kitaplar.filter(k => k.ad !== ad);
-    localStorage.setItem("kitaplar", JSON.stringify(kitaplar));
-    renderKitap();
-    document.getElementById("kitapInput").value = "";
-  }
+    // Diziler
+    const diziList = document.getElementById("diziList");
+    let diziler = JSON.parse(localStorage.getItem("diziler")) || [];
 
-  // ---------- DIZI (PUANA GÖRE SIRALI) ----------
-  const diziList = document.getElementById("diziList");
-  let diziler = JSON.parse(localStorage.getItem("diziler")) || [];
+    function renderDizi() {
+      diziList.innerHTML = "";
+      const sorted = [...diziler].sort((a, b) => b.puan - a.puan);
+      sorted.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.ad} (${item.puan}/5)`;
+        diziList.appendChild(li);
+      });
+    }
 
-  function renderDizi() {
-    diziList.innerHTML = "";
+    function addDizi() {
+      const ad = document.getElementById("diziInput").value.trim();
+      const puan = parseInt(document.getElementById("diziPuan").value);
+      if (ad && !diziler.some(d => d.ad === ad)) {
+        diziler.push({ ad, puan });
+        localStorage.setItem("diziler", JSON.stringify(diziler));
+        renderDizi();
+        document.getElementById("diziInput").value = "";
+      }
+    }
 
-    // puana göre sırala (yüksek puan üstte)
-    const sorted = [...diziler].sort((a, b) => b.puan - a.puan);
-
-    sorted.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = `${item.ad} (${item.puan}/5)`;
-      diziList.appendChild(li);
-    });
-  }
-
-  function addDizi() {
-    const ad = document.getElementById("diziInput").value.trim();
-    const puan = parseInt(document.getElementById("diziPuan").value);
-    if (ad && !diziler.some(d => d.ad === ad)) {
-      diziler.push({ ad, puan });
+    function removeDizi() {
+      const ad = document.getElementById("diziInput").value.trim();
+      diziler = diziler.filter(d => d.ad !== ad);
       localStorage.setItem("diziler", JSON.stringify(diziler));
       renderDizi();
       document.getElementById("diziInput").value = "";
     }
-  }
 
-  function removeDizi() {
-    const ad = document.getElementById("diziInput").value.trim();
-    diziler = diziler.filter(d => d.ad !== ad);
-    localStorage.setItem("diziler", JSON.stringify(diziler));
+    renderKitap();
     renderDizi();
-    document.getElementById("diziInput").value = "";
-  }
-
-  renderKitap();
-  renderDizi();
-</script>
-
+  </script>
 
 </body>
 </html>
