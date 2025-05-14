@@ -162,28 +162,28 @@
 
   <!-- 2. satır: 4 foto -->
   <div class="second-row">
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff1.jpg" alt="BFF 1"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff2.jpg" alt="BFF 2"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff3.jpg" alt="BFF 3"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff4.jpg" alt="BFF 4"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff1.jpg" alt="BFF 1" data-audio="audio1" data-start="10"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff2.jpg" alt="BFF 2" data-audio="audio2" data-start="5"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff3.jpg" alt="BFF 3" data-audio="audio3" data-start="20"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff4.jpg" alt="BFF 4" data-audio="audio4" data-start="28"></div></div>
   </div>
 
   <!-- Sonraki 3 satır: her satırda 3 foto -->
   <div class="hex-grid">
     <!-- 3. satır -->
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff5.jpg" alt="BFF 5"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff6.jpg" alt="BFF 6"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff7.jpg" alt="BFF 7"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff5.jpg" alt="BFF 5" data-audio="audio5" data-start="15"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff6.jpg" alt="BFF 6" data-audio="audio6" data-start="8"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff7.jpg" alt="BFF 7" data-audio="audio7" data-start="12"></div></div>
 
     <!-- 4. satır -->
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff8.jpg" alt="BFF 8"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff9.jpg" alt="BFF 9"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff10.jpg" alt="BFF 10"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff8.jpg" alt="BFF 8" data-audio="audio8" data-start="5"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff9.jpg" alt="BFF 9" data-audio="audio9" data-start="10"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff10.jpg" alt="BFF 10" data-audio="audio10" data-start="0"></div></div>
 
     <!-- 5. satır -->
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff11.jpg" alt="BFF 11"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff12.jpg" alt="BFF 12"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff13.jpg" alt="BFF 13"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff11.jpg" alt="BFF 11" data-audio="audio11" data-start="3"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff12.jpg" alt="BFF 12" data-audio="audio12" data-start="20"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff13.jpg" alt="BFF 13" data-audio="audio13" data-start="15"></div></div>
   </div>
 
   <a href="index.html">← Ana Sayfaya Dön</a>
@@ -194,24 +194,60 @@
     <img id="modal-img" src="" alt="Enlarged photo">
   </div>
 
+  <!-- Şarkılar -->
+  <audio id="audio1" src="music/song1.mp3"></audio>
+  <audio id="audio2" src="music/song2.mp3"></audio>
+  <audio id="audio3" src="music/song3.mp3"></audio>
+  <audio id="audio4" src="music/song4.mp3"></audio>
+  <audio id="audio5" src="music/song5.mp3"></audio>
+  <audio id="audio6" src="music/song6.mp3"></audio>
+  <audio id="audio7" src="music/song7.mp3"></audio>
+  <audio id="audio8" src="music/song8.mp3"></audio>
+  <audio id="audio9" src="music/song9.mp3"></audio>
+  <audio id="audio10" src="music/song10.mp3"></audio>
+  <audio id="audio11" src="music/song11.mp3"></audio>
+  <audio id="audio12" src="music/song12.mp3"></audio>
+  <audio id="audio13" src="music/song13.mp3"></audio>
+
   <script>
-    // Tüm resimlere tıklama ekle
-    document.querySelectorAll('img').forEach(img => {
+    // Resimlere tıklama işlevi ekle
+    document.querySelectorAll('.hex img').forEach((img) => {
       img.addEventListener('click', () => {
+        // Modal görüntüsünü büyütme
         const modal = document.getElementById('modal');
         const modalImg = document.getElementById('modal-img');
         modal.style.display = 'flex';
         modalImg.src = img.src;
+        
+        // Hangi şarkıyı çalacağımıza karar ver
+        const audioId = img.getAttribute('data-audio');
+        const startTime = parseInt(img.getAttribute('data-start'));
+        const audio = document.getElementById(audioId);
+        audio.currentTime = startTime;  // Belirtilen saniyeden başlat
+        audio.play();  // Şarkıyı çalmaya başla
       });
     });
-    // Kapat düğmesi
+
+    // Modal kapanma işlevi
     document.getElementById('modal-close').addEventListener('click', () => {
       document.getElementById('modal').style.display = 'none';
+      
+      // Müzik durdurulacak
+      document.querySelectorAll('audio').forEach(audio => {
+        audio.pause();  // Tüm şarkıları durdur
+        audio.currentTime = 0;  // Şarkıların zamanını sıfırla
+      });
     });
-    // Modal dışına tıklayınca kapat
+    
     document.getElementById('modal').addEventListener('click', e => {
       if (e.target === e.currentTarget) {
         e.currentTarget.style.display = 'none';
+        
+        // Müzik durdurulacak
+        document.querySelectorAll('audio').forEach(audio => {
+          audio.pause();  // Tüm şarkıları durdur
+          audio.currentTime = 0;  // Şarkıların zamanını sıfırla
+        });
       }
     });
   </script>
