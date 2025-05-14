@@ -35,13 +35,17 @@
       flex-direction: column;
       align-items: center;
       cursor: pointer; /* Tıklanabilirlik ekleniyor */
+      position: relative; /* Tıklanabilirlik için position ekleniyor */
+      z-index: 1; /* Diğer öğelerin önünde olması için z-index */
     }
+
     .featured-hex {
       width: 240px;
       aspect-ratio: 1;
       clip-path: inherit;
       overflow: hidden;
     }
+
     .featured-hex img,
     .second-row .hex img,
     .hex-grid .hex img {
@@ -157,7 +161,7 @@
   <!-- 1. satır: büyük foto -->
   <div class="featured-hex-wrapper">
     <div class="featured-hex">
-      <img src="bff/bff0.jpg" alt="Featured BFF" data-audio="audio0" data-start="0">
+      <img src="bff/bff0.jpg" alt="Featured BFF">
     </div>
   </div>
 
@@ -166,7 +170,7 @@
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff1.jpg" alt="BFF 1" data-audio="audio1" data-start="10"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff2.jpg" alt="BFF 2" data-audio="audio2" data-start="5"></div></div>
     <div class="hex-wrapper"><div class="hex"><img src="bff/bff3.jpg" alt="BFF 3" data-audio="audio3" data-start="20"></div></div>
-    <div class="hex-wrapper"><div class="hex"><img src="bff/bff4.jpg" alt="BFF 4" data-audio="audio4" data-start="0"></div></div>
+    <div class="hex-wrapper"><div class="hex"><img src="bff/bff4.jpg" alt="BFF 4" data-audio="audio4" data-start="29"></div></div>
   </div>
 
   <!-- Sonraki 3 satır: her satırda 3 foto -->
@@ -196,7 +200,6 @@
   </div>
 
   <!-- Şarkılar -->
-  <audio id="audio0" src="music/song0.mp3"></audio>
   <audio id="audio1" src="music/song1.mp3"></audio>
   <audio id="audio2" src="music/song2.mp3"></audio>
   <audio id="audio3" src="music/song3.mp3"></audio>
